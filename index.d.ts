@@ -2,7 +2,24 @@
 // Type definitions for chart.js v2.1.4
 // Definitions by: Wu Jun <wujun4code@github>
 // Typed it,enjoy it!
-interface ChartDataSet {
+
+export class Chart{
+    constructor(ctx:CanvasRenderingContext2D,options?:any);
+    
+    static Line(ctx:CanvasRenderingContext2D,options?:any):Chart;
+    
+    static Bar(ctx:CanvasRenderingContext2D,options?:any):Chart;
+    
+    static Bubble(ctx:CanvasRenderingContext2D,options?:any):Chart;
+    
+    static Doughnut(ctx:CanvasRenderingContext2D,options?:any):Chart;
+    
+    static PolarArea(ctx:CanvasRenderingContext2D,options?:any):Chart;
+    
+    static Radar(ctx:CanvasRenderingContext2D,options?:any):Chart;
+    
+}
+export interface ChartDataSet {
     label: string;
     fillColor: string;
     strokeColor: string;
@@ -18,20 +35,39 @@ interface ChartDataSet {
     highlightStroke?: string;
     data: number[];
 }
-
-interface LinearChartData {
+export interface LinearChartData {
     labels: string[];
     datasets: ChartDataSet[];
+    xAxisID?:string;
+    yAxisID?:string;
+    fill?:boolean;
+    lineTension?:number;
+    backgroundColor?:string;
+    borderWidth?:number;
+    borderColor?:string;
+    borderCapStyle?:string;
+    borderDash?:number[];
+    borderDashOffset?:number;
+    borderJoinStyle?:string;
+    pointBorderColor?:string[];
+    pointBorderWidth?:number[];
+    pointRadius?:number[];
+    pointHoverRadius?:number[];
+    pointHitRadius?:number[];
+    pointHoverBackgroundColor?:string[];
+    pointHoverBorderColor?:string[];
+    pointHoverBorderWidth?:number[];
+    pointStyle?:any
 }
 
-interface CircularChartData {
+export interface CircularChartData {
     value: number;
     color?: string;
     highlight?: string;
     label?: string;
 }
 
-interface ChartSettings {
+export interface ChartSettings {
     animation?: boolean;
     animationSteps?: number;
     animationEasing?: string;
@@ -74,7 +110,7 @@ interface ChartSettings {
     onAnimationComplete?: () => any;
 }
 
-interface ChartOptions extends ChartSettings {
+export interface ChartOptions extends ChartSettings {
     scaleShowGridLines?: boolean;
     scaleGridLineColor?: string;
     scaleGridLineWidth?: number;
@@ -83,7 +119,7 @@ interface ChartOptions extends ChartSettings {
     legendTemplate?: string;
 }
 
-interface PointsAtEvent {
+export interface PointsAtEvent {
     value: number;
     label: string;
     datasetLabel: string;
@@ -95,7 +131,7 @@ interface PointsAtEvent {
     y: number;
 }
 
-interface ChartInstance {
+export interface ChartInstance {
     clear: () => void;
     stop: () => void;
     resize: () => void;
@@ -104,14 +140,14 @@ interface ChartInstance {
     generateLegend: () => string;
 }
 
-interface LinearInstance extends ChartInstance {
+export interface LinearInstance extends ChartInstance {
     getPointsAtEvent: (event: Event) => PointsAtEvent[];
     update: () => void;
     addData: (valuesArray: number[], label: string) => void;
     removeData: (index?: number) => void;
 }
 
-interface CircularInstance extends ChartInstance {
+export interface CircularInstance extends ChartInstance {
     getSegmentsAtEvent: (event: Event) => {}[];
     update: () => void;
     addData: (valuesArray: CircularChartData, index?: number) => void;
@@ -119,7 +155,7 @@ interface CircularInstance extends ChartInstance {
     segments: Array<CircularChartData>;
 }
 
-interface LineChartOptions extends ChartOptions {
+export interface LineChartOptions extends ChartOptions {
     bezierCurve?: boolean;
     bezierCurveTension?: number;
     pointDot?: boolean;
@@ -131,7 +167,7 @@ interface LineChartOptions extends ChartOptions {
     datasetFill?: boolean;
 }
 
-interface BarChartOptions extends ChartOptions {
+export interface BarChartOptions extends ChartOptions {
     scaleBeginAtZero?: boolean;
     barShowStroke?: boolean;
     barStrokeWidth?: number;
@@ -139,7 +175,7 @@ interface BarChartOptions extends ChartOptions {
     barDatasetSpacing?: number;
 }
 
-interface RadarChartOptions extends ChartSettings {
+export interface RadarChartOptions extends ChartSettings {
     scaleShowLine?: boolean;
     angleShowLineOut?: boolean;
     scaleShowLabels?: boolean;
@@ -160,7 +196,7 @@ interface RadarChartOptions extends ChartSettings {
     legendTemplate?: string;
 }
 
-interface PolarAreaChartOptions extends ChartSettings {
+export interface PolarAreaChartOptions extends ChartSettings {
     scaleShowLabelBackdrop?: boolean;
     scaleBackdropColor?: string;
     scaleBeginAtZero?: boolean;
@@ -177,7 +213,7 @@ interface PolarAreaChartOptions extends ChartSettings {
     legendTemplate?: string;
 }
 
-interface PieChartOptions extends ChartSettings {
+export interface PieChartOptions extends ChartSettings {
     segmentShowStroke?: boolean;
     segmentStrokeColor?: string;
     segmentStrokeWidth?: number;
@@ -188,20 +224,3 @@ interface PieChartOptions extends ChartSettings {
     animateScale?: boolean;
     legendTemplate?: string;
 }
-
-interface Chart {
-    Line(data: LinearChartData, options?: LineChartOptions): LinearInstance;
-    Bar(data: LinearChartData, options?: BarChartOptions): LinearInstance;
-    Radar(data: LinearChartData, options?: RadarChartOptions): LinearInstance;
-
-    PolarArea(data: CircularChartData[], options?: PolarAreaChartOptions): CircularInstance;
-    Pie(data: CircularChartData[], options?: PieChartOptions): CircularInstance;
-    Doughnut(data: CircularChartData[], options?: PieChartOptions): CircularInstance;
-}
-
-declare var Chart: {
-    new (context: CanvasRenderingContext2D,options?:any): Chart;
-    defaults: {
-        global: ChartSettings;
-    }
-};
