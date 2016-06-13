@@ -1,3 +1,4 @@
+/// <reference path="../index.d.ts" />
 import test = require('blue-tape');
 
 var canvas = <HTMLCanvasElement>document.getElementById('examplechart');
